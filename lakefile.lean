@@ -212,10 +212,10 @@ def getCt2CmakeFlags : IO (Array String) := do
   | .linux => flags := flags ++ #["-DWITH_ACCELERATE=OFF", "-DWITH_OPENBLAS=ON", "-DOPENBLAS_INCLUDE_DIR=../../OpenBLAS", "-DOPENBLAS_LIBRARY=../../OpenBLAS/libopenblas.so"]
 
   -- [TODO] Temporary fix: Do not use CUDA even if it is available.
-  -- if ← useCUDA then
-  --   flags := flags ++ #["-DWITH_CUDA=ON", "-DWITH_CUDNN=ON"]
-  -- else
-  --   flags := flags ++ #["-DWITH_CUDA=OFF", "-DWITH_CUDNN=OFF"]
+  if ← useCUDA then
+    flags := flags ++ #["-DWITH_CUDA=ON", "-DWITH_CUDNN=ON"]
+  else
+    flags := flags ++ #["-DWITH_CUDA=OFF", "-DWITH_CUDNN=OFF"]
 
   return flags
 
